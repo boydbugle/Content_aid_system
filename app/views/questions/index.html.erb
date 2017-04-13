@@ -1,9 +1,14 @@
-<h1>Questions#index</h1>
-<p>Find me in app/views/questions/index.html.erb</p>
-<h2> All Questions</h2>
+
+<div id="tag_cloud">
+  <% tag_cloud Question.tag_counts, %w[s m l] do |tag, css_class| %>
+    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+  <% end %>
+</div>
+
 <% if @questions.any? %>
    <% @questions.each do |question| %>
         <p><%= question.description %>&nbsp&nbsp<%= link_to "edit", edit_question_path(question)%>&nbsp<%= link_to "delete", question_path(question), data: {confirm: 'delete question?', method: :delete}%></p>
+        <p>Tags: <%= raw(question.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
      <% end %>
      <% else %>
      <h3>AAAiiii!!,hakuna questions bado!!</h3>

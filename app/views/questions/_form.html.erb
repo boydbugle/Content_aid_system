@@ -1,6 +1,8 @@
 
 <%= render('layouts/errors', object: @question)%>
 
+
+
 <%= form_for @question do |f| %>
   <div class="control-group">
       <%= f.label :title %>
@@ -12,16 +14,19 @@
       <div class="controls">
         <%= f.text_field :description %>
       </div>
+      </div>
       <div class="control-group">
       <%= f.label :code %>
       <div class="controls">
         <%= f.text_field :code %>
       </div>
       </div>
-      <% @tags.each do |tag| %>
-        <%= f.label :tag_id, tag.tag %>
-          <%= f.check_box :tag_id %>
-        <% end %>
+      <div class="control-group">
+      <%= f.label :tag_list, "Tags (separated by commas)" %>
+      <div class="controls">
+        <%= f.text_field :tag_list %>
+      </div>
+      </div>
     <div class="control-group">
       <div class="controls">
         <%= f.submit 'submit', class: 'btn btn-primary'%>

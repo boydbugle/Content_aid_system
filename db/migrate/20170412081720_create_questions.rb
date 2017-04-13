@@ -4,7 +4,6 @@ class CreateQuestions < ActiveRecord::Migration[5.0]
       t.string :title
       t.text :description
       t.text :code
-      t.integer :tag_id
       t.integer :user_id
 
       t.timestamps
