@@ -5,13 +5,16 @@
   <% end %>
 </div>
 
+
+<%= link_to "new question" ,new_question_path %>
+
 <% if @questions.any? %>
    <% @questions.each do |question| %>
-        <p><%= question.description %>&nbsp&nbsp<%= link_to "edit", edit_question_path(question)%>&nbsp<%= link_to "delete", question_path(question), data: {confirm: 'delete question?', method: :delete}%></p>
+        <h4><%= question.user.name %></h4>
+        <p><%= question.description %>
+        <br /><br /><%= raw(question.code) %>&nbsp&nbsp<%= link_to "edit", edit_question_path(question)%>&nbsp<%= link_to "delete", question_path(question), data: {confirm: 'delete question?', method: :delete}%></p>
         <p>Tags: <%= raw(question.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
      <% end %>
      <% else %>
      <h3>AAAiiii!!,hakuna questions bado!!</h3>
 <% end %>
-
-<%= link_to "new question" ,new_question_path %>

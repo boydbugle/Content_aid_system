@@ -1,6 +1,5 @@
 class QuestionsController < ApplicationController
   def index
-    # @questions = Question.all
     if params[:tag]
       @questions = Question.tagged_with(params[:tag])
     else
@@ -13,11 +12,12 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
+    @question = current_user.questions.build
+    # @question = Question.new
   end
 
   def create
-    @question = Question.new(question_params)
+    @question = current_user.questions.build(question_params)
     if @question.save
       redirect_to root_path
     else
@@ -38,6 +38,11 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def destroy
+    @question = Question.find(params[:id])
+    @question.destroy
+    redirect_to root_path
+  end
   private
   def question_params
     params.require(:question).permit(:title,:description,:code,:tag_list)

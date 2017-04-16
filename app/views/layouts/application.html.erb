@@ -6,9 +6,30 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%#//ckeditor default ajax
+  <script type='text/javascript' charset='UTF-8'>
+  $(document).ready(function(){
+    $('form[data-remote]').bind('ajax:before', function(){
+      for (instance in CKEDITOR.instances){
+        CKEDITOR.instances[instance].updateElement();
+      }
+    });
+  });%>
+</script>
   </head>
 
   <body>
+  <div class=userlink>
+      <% if current_user %>
+        logged in as <%= current_user.name %>
+        <%= link_to "Log Out", session_path(current_user), method: "delete" %>
+      <% else %>
+        <%= link_to "Sign Up", signup_path %>| &nbsp
+        <%= link_to "Log In", login_path %>
+      <% end %>
+    </div>  
+    <%= flash[:notice]%>
+    <%= flash[:alert]%>
     <%= yield %>
   </body>
 </html>
