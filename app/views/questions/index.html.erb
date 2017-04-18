@@ -11,7 +11,7 @@
 <% if @questions.any? %>
    <% @questions.each do |question| %>
         <h4><%= question.user.name %></h4>
-        <p><%= question.title %>
+        <p><%= link_to question.title, question_path(question) %>
         <br /><br /><%= raw(question.code) %>&nbsp&nbsp<%= link_to "edit", edit_question_path(question)%>&nbsp<%= link_to "delete", question_path(question), data: {confirm: 'delete question?', method: :delete}%></p>
         <p>Tags: <%= raw(question.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
      <% end %>
