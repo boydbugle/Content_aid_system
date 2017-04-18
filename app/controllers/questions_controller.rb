@@ -1,4 +1,9 @@
 class QuestionsController < ApplicationController
+
+  before_filter :must_login?, only: [:new, :edit, :destroy]
+  # load_and_authorize_resource param_method: :my_sanitizer
+  # load_and_authorize_resource
+
   def index
     if params[:tag]
       @questions = Question.tagged_with(params[:tag])
@@ -9,11 +14,11 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answer = @question.answers.new
   end
 
   def new
     @question = current_user.questions.build
-    # @question = Question.new
   end
 
   def create
@@ -44,6 +49,11 @@ class QuestionsController < ApplicationController
     redirect_to root_path
   end
   private
+
+  # def my_sanitizer
+  #   params.require(:question).permit(:title,:description,:code,:tag_list)
+  # end
+
   def question_params
     params.require(:question).permit(:title,:description,:code,:tag_list)
   end

@@ -8,16 +8,16 @@ class Ability
       if user.admin?
         can :manage, :all
       else
-        can :update Question do |question|
+        can :update, Question do |question|
           question.user == user
         end
-        can :destroy Question do |question|
+        can :destroy, Question do |question|
           question.user == user
         end
-        can :update Reply do |reply|
+        can :update, Reply do |reply|
           reply.user == user
         end
-        can :destroy Reply do |reply|
+        can :destroy, Reply do |reply|
           reply.user == user
         end
         can :create, Question

@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
  
-  get 'sessions/new'
-
   mount Ckeditor::Engine => '/ckeditor'
   root to: 'questions#index'
   get '/users/new', to: 'users#new', as: 'signup'
@@ -12,7 +10,9 @@ Rails.application.routes.draw do
 
   get 'tags/:tag', to: 'questions#index', as: :tag
 
-  resources :questions 
+  resources :questions do 
+    resources :answers, except: [:index,:show,:new]
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
